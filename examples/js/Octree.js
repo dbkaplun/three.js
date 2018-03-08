@@ -7,7 +7,7 @@
  * based on Dynamic Octree by Piko3D @ http://www.piko3d.com/ and Octree by Marek Pawlowski @ pawlowski.it
  *
  */
- ( function ( THREE ) {
+( function ( THREE ) {
 
 	"use strict";
 	
@@ -17,21 +17,21 @@
 
 	=====================================================*/
 	
-	function isNumber ( n ) {
+	function isNumber( n ) {
 
 		return ! isNaN( n ) && isFinite( n );
 
 	}
 	
-	function isArray ( target ) {
+	function isArray( target ) {
 
 		return Object.prototype.toString.call( target ) === '[object Array]';
 
 	}
 	
-	function toArray ( target ) {
+	function toArray( target ) {
 
-		return target ? ( isArray ( target ) !== true ? [ target ] : target ) : [];
+		return target ? ( isArray( target ) !== true ? [ target ] : target ) : [];
 
 	}
 	
@@ -190,8 +190,7 @@
 				faces,
 				useFaces,
 				vertices,
-				useVertices,
-				objectData;
+				useVertices;
 			
 			// ensure object is not object data
 			
@@ -366,7 +365,6 @@
 			
 			var i, l,
 				node,
-				object,
 				objectData,
 				indexOctant,
 				indexOctantLast,
@@ -1287,7 +1285,6 @@
 				objectsExpand,
 				indexOctant,
 				flagsOutside,
-				indexOutside,
 				indexOctantInverse,
 				iom = this.tree.INDEX_OUTSIDE_MAP,
 				indexOutsideCounts,
@@ -1337,7 +1334,7 @@
 					
 					// get object octant index
 					
-					indexOctant = octants[ i ] ;
+					indexOctant = octants[ i ];
 					
 					// if object outside this, include in calculations
 					
@@ -1548,7 +1545,6 @@
 		merge: function ( nodes ) {
 			
 			var i, l,
-				j, k,
 				node;
 			
 			// handle nodes
@@ -1674,8 +1670,7 @@
 		
 		getOctantIndex: function ( objectData ) {
 			
-			var i, l,
-				positionObj,
+			var positionObj,
 				radiusObj,
 				position = this.position,
 				radiusOverlap = this.radiusOverlap,
