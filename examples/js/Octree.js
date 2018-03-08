@@ -190,6 +190,10 @@
 				faces,
 				useFaces,
 				vertices,
+				bufferGeometryPosition,
+				bufferGeometryPositionArray,
+				bufferGeometryPositionCount,
+				bufferGeometryPositionItemSize,
 				useVertices;
 			
 			// ensure object is not object data
@@ -227,12 +231,40 @@
 				if ( useVertices === true ) {
 					
 					geometry = object.geometry;
-					vertices = geometry.vertices;
-					
-					for ( i = 0, l = vertices.length; i < l; i ++ ) {
-						
-						this.addObjectData( object, vertices[ i ] );
-						
+
+					if ( geometry.isBufferGeometry ) {
+
+						bufferGeometryPosition = geometry.attributes.position;
+						bufferGeometryPositionArray = bufferGeometryPosition.array;
+						bufferGeometryPositionCount = bufferGeometryPosition.count;
+						bufferGeometryPositionItemSize = bufferGeometryPosition.itemSize;
+
+						if ( bufferGeometryPositionItemSize !== 3 ) {
+
+							throw new Error( "not implemented for bufferGeometry.attributes.position.itemSize !== 3" );
+
+						}
+
+						for ( i = 0, l = bufferGeometryPositionCount; i < l; i += 3 ) {
+
+							this.addObjectData( object, new THREE.Vector3(
+								bufferGeometryPositionArray[ i ],
+								bufferGeometryPositionArray[ i + 1 ],
+								bufferGeometryPositionArray[ i + 2 ]
+							) );
+
+						}
+
+					} else {
+
+						vertices = geometry.vertices;
+
+						for ( i = 0, l = vertices.length; i < l; i ++ ) {
+
+							this.addObjectData( object, vertices[ i ] );
+
+						}
+
 					}
 					
 				} else if ( useFaces === true ) {
